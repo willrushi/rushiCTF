@@ -17,6 +17,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/index.html')));
 app.get('/md5.js', (req, res) => res.sendFile(path.join(__dirname + '/md5.js')));
 app.get('/script.js', (req, res) => res.sendFile(path.join(__dirname + '/script.js')));
 app.get('/style.css', (req, res) => res.sendFile(path.join(__dirname + '/style.css')));
+app.get('/game.js', (req, res) => res.sendFile(path.join(__dirname + '/game.js')));
 
 
 
@@ -33,11 +34,11 @@ app.post('/time', (req, res) => {
 })
 app.post('/key', (req, res) => {
     console.log(req.body);
-    if(req.body.key == "724f09e86481b7f9d8e2074c1a9627cf"){
+    if(req.body.key == "e500306229d616de36c771534c49652a"){
         res.send(JSON.stringify({"response":"Well done! FLAG{h4sh3d_j5_1s_s3cur3}"}));
     }else{
         res.send(JSON.stringify({"response":"Do you think I wouldn't know that you tampered with my js?"}));
     }
 });
 
-app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

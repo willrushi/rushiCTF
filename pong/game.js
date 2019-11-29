@@ -1,5 +1,6 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const regex = /[ \n\r\t]/g
 
 let getTime = () => {
 	let d = new Date();
@@ -114,12 +115,13 @@ class Game{
 	}
 
 	_0x49F92A(){
-		if(this.ball.xVel > 1){
-			let a = [this.start, this.checkCollision, this.checkWin, this.checkGameOver, this.player.getHeight(), this.enemy.getHeight(), this.update, Math.floor(this.timer)];
+		if(this.ball.xVel != 0){
+			let a = [this.start, this.checkCollision, this.checkWin, this.checkGameOver, this.player.getHeight(), this.enemy.getHeight(), this.update, Math.floor(this._0x10F10FAB)];
 			let c = "";
 			a.forEach(b => {
 				c += b.toString();
 			})
+			c = c.replace(regex, "");
 			return(this._0x195F2B(c));
 		}	
 	}
@@ -127,7 +129,7 @@ class Game{
 	_0x99FA91B(){
 		console.log("Grabbing key...");
 		return new Promise((resolve, reject) => {
-			fetch("https://quickest-iron.glitch.me/key", {
+			fetch("/key", {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json'
@@ -143,7 +145,7 @@ class Game{
 
 	fetchTime(){
 		return new Promise((resolve, reject) => {
-			fetch("https://quickest-iron.glitch.me/time", {
+			fetch("/time", {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json'
@@ -160,7 +162,9 @@ class Game{
 	checkWin(){
 		this.fetchTime()
 			.then(res => {
-				if(res <= 1){
+				if(res < 1){
+					this._0x10F10FAB = res;
+					this._0x12F1BB = this._0x49F92A();
 					this._0x99FA91B()
 						.then(f => {
 							console.log("Flag: " + f);
@@ -219,7 +223,7 @@ class Game{
 	
 			this.components.forEach(c => c.draw());
 
-			this._0x12F1BB = this._0x49F92A();
+			
 	
 			this.enemy.y = this.ball.y;
 	
