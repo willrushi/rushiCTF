@@ -1,0 +1,296 @@
+var _0x1138 = [
+    '_0x49F92A',
+    'checkWin',
+    'checkGameOver',
+    'getHeight',
+    'floor',
+    'forEach',
+    'toString',
+    'replace',
+    '_0x99FA91B',
+    'log',
+    'Grabbing\x20key...',
+    '/key',
+    'post',
+    'application/json',
+    '_0x12F1BB',
+    'then',
+    'json',
+    'fetchTime',
+    '/time',
+    'time',
+    '_0x10F10FAB',
+    'Flag:\x20',
+    'font',
+    '25px\x20Arial',
+    'textAlign',
+    'center',
+    'fillText',
+    'checkLose',
+    '50px\x20Arial',
+    'reload',
+    'tick',
+    'TIME\x20LEFT:\x20',
+    'getElementById',
+    'myCanvas',
+    'getContext',
+    'getTime',
+    'width',
+    'height',
+    'colour',
+    '#FFFFFF',
+    'draw',
+    'fillStyle',
+    'move',
+    'down',
+    'xVel',
+    'yVel',
+    'start',
+    'api',
+    'random',
+    'lose',
+    'win',
+    'components',
+    'upKey',
+    'downKey',
+    'startTimer',
+    'timer',
+    'text',
+    'player',
+    'enemy',
+    'ball',
+    'push',
+    'addEventListener',
+    'keydown',
+    'keyCode',
+    'keyup',
+    'update',
+    'checkCollision',
+    '_0x195F2B'
+];
+(function (_0x5188d1, _0x13510f) {
+    var _0x5e4881 = function (_0x338404) {
+        while (--_0x338404) {
+            _0x5188d1['push'](_0x5188d1['shift']());
+        }
+    };
+    _0x5e4881(++_0x13510f);
+}(_0x1138, 0xa8));
+var _0x382b = function (_0xdbc40d, _0x58c5d9) {
+    _0xdbc40d = _0xdbc40d - 0x0;
+    var _0x26b578 = _0x1138[_0xdbc40d];
+    return _0x26b578;
+};
+const canvas = document[_0x382b('0x0')](_0x382b('0x1'));
+const ctx = canvas[_0x382b('0x2')]('2d');
+const regex = /[ \n\r\t]/g;
+let getTime = () => {
+    let _0x57f3b7 = new Date();
+    return _0x57f3b7[_0x382b('0x3')]();
+};
+class Component {
+    constructor(_0x51ad91, _0xcf21a2, _0x26b795, _0x484742) {
+        this[_0x382b('0x4')] = _0x51ad91;
+        this[_0x382b('0x5')] = _0xcf21a2;
+        this['x'] = _0x26b795;
+        this['y'] = _0x484742;
+        this[_0x382b('0x6')] = _0x382b('0x7');
+    }
+    [_0x382b('0x8')]() {
+        ctx[_0x382b('0x9')] = this['colour'];
+        ctx['fillRect'](this['x'], this['y'], this['width'], this['height']);
+    }
+}
+class Paddle extends Component {
+    constructor(_0x21fa7d, _0x3dbd26, _0x2aa791, _0x45779) {
+        super(_0x21fa7d, _0x3dbd26, _0x2aa791, _0x45779);
+    }
+    [_0x382b('0xa')](_0x466b8e) {
+        if (_0x466b8e == 'up') {
+            this['y'] += 0xa;
+        }
+        if (_0x466b8e == _0x382b('0xb')) {
+            this['y'] -= 0xa;
+        }
+    }
+    ['getHeight']() {
+        return this[_0x382b('0x5')];
+    }
+}
+class Ball extends Component {
+    constructor(_0x15cf8e, _0x28ee53, _0x2a032e, _0x3a56d0) {
+        super(_0x15cf8e, _0x28ee53, _0x2a032e, _0x3a56d0);
+        this[_0x382b('0xc')] = -0x8;
+        this[_0x382b('0xd')] = 0x8;
+    }
+    [_0x382b('0xa')]() {
+        this['x'] += this['xVel'];
+        this['y'] += this[_0x382b('0xd')];
+    }
+}
+class Game {
+    constructor() {
+        this[_0x382b('0xe')]();
+    }
+    ['start']() {
+        this['tick'] = 0x0;
+        this[_0x382b('0xf')] = Math[_0x382b('0x10')]();
+        this[_0x382b('0x11')] = ![];
+        this[_0x382b('0x12')] = ![];
+        this[_0x382b('0x13')] = [];
+        this[_0x382b('0x14')] = ![];
+        this[_0x382b('0x15')] = ![];
+        this[_0x382b('0x16')] = getTime();
+        this[_0x382b('0x17')] = 0x1e;
+        this[_0x382b('0x18')] = '';
+        this[_0x382b('0x19')] = new Paddle(0x1e, 0xc8, 0x32, canvas[_0x382b('0x5')] / 0x2 - 0x4b);
+        this[_0x382b('0x1a')] = new Paddle(0x1e, 0xc8, canvas[_0x382b('0x4')] - 0x50, canvas['height'] / 0x2 - 0x4b);
+        this[_0x382b('0x1b')] = new Ball(0x1e, 0x1e, canvas['width'] / 0x2, canvas[_0x382b('0x5')] / 0x2);
+        this[_0x382b('0x13')][_0x382b('0x1c')](this[_0x382b('0x19')], this[_0x382b('0x1a')], this[_0x382b('0x1b')]);
+        document[_0x382b('0x1d')](_0x382b('0x1e'), _0x23ab79 => {
+            if (_0x23ab79[_0x382b('0x1f')] == 0x28) {
+                this[_0x382b('0x14')] = !![];
+            }
+            if (_0x23ab79[_0x382b('0x1f')] == 0x26) {
+                this[_0x382b('0x15')] = !![];
+            }
+        });
+        document[_0x382b('0x1d')](_0x382b('0x20'), _0x53a7f2 => {
+            if (_0x53a7f2[_0x382b('0x1f')] == 0x28) {
+                this['upKey'] = ![];
+            }
+            if (_0x53a7f2[_0x382b('0x1f')] == 0x26) {
+                this[_0x382b('0x15')] = ![];
+            }
+        });
+        requestAnimationFrame(() => this[_0x382b('0x21')]());
+    }
+    [_0x382b('0x22')]() {
+        if (this[_0x382b('0x1b')]['y'] <= 0x0) {
+            this[_0x382b('0x1b')][_0x382b('0xd')] *= -0x1;
+        }
+        if (this[_0x382b('0x1b')]['y'] + this[_0x382b('0x1b')][_0x382b('0x5')] >= canvas[_0x382b('0x5')]) {
+            this[_0x382b('0x1b')][_0x382b('0xd')] *= -0x1;
+        }
+        if (this['ball']['x'] < 0x32 + this[_0x382b('0x19')]['width'] / 0x2 + this[_0x382b('0x1b')][_0x382b('0x4')] / 0x2 && this[_0x382b('0x1b')]['x'] > this[_0x382b('0x19')][_0x382b('0x4')] / 0x2 + this[_0x382b('0x1b')]['width'] / 0x2) {
+            if (this[_0x382b('0x1b')]['y'] + this['ball']['height'] > this[_0x382b('0x19')]['y'] && this[_0x382b('0x1b')]['y'] < this[_0x382b('0x19')]['y'] + this[_0x382b('0x19')][_0x382b('0x5')]) {
+                this[_0x382b('0x1b')][_0x382b('0xc')] *= -1.15;
+            }
+        }
+        if (this[_0x382b('0x1b')]['x'] > canvas['width'] - 0x50 - this[_0x382b('0x1a')][_0x382b('0x4')] / 0x2 - this[_0x382b('0x1b')]['width'] / 0x2) {
+            if (this[_0x382b('0x1b')]['y'] + this[_0x382b('0x1b')][_0x382b('0x5')] > this[_0x382b('0x1a')]['y'] && this[_0x382b('0x1b')]['y'] < this[_0x382b('0x1a')]['y'] + this[_0x382b('0x1a')][_0x382b('0x5')]) {
+                this[_0x382b('0x1b')][_0x382b('0xc')] *= -1.15;
+            }
+        }
+    }
+    [_0x382b('0x23')](_0x5adabe) {
+        return md5(_0x5adabe);
+    }
+    [_0x382b('0x24')]() {
+        if (this[_0x382b('0x1b')][_0x382b('0xc')] != 0x0) {
+            let _0x210eff = [
+                this[_0x382b('0xe')],
+                this[_0x382b('0x22')],
+                this[_0x382b('0x25')],
+                this[_0x382b('0x26')],
+                this[_0x382b('0x19')][_0x382b('0x27')](),
+                this[_0x382b('0x1a')][_0x382b('0x27')](),
+                this[_0x382b('0x21')],
+                Math[_0x382b('0x28')](this['_0x10F10FAB'])
+            ];
+            let _0x235552 = '';
+            _0x210eff[_0x382b('0x29')](_0x43b017 => {
+                _0x235552 += _0x43b017[_0x382b('0x2a')]();
+            });
+            _0x235552 = _0x235552[_0x382b('0x2b')](regex, '');
+            return this[_0x382b('0x23')](_0x235552);
+        }
+    }
+    [_0x382b('0x2c')]() {
+        console[_0x382b('0x2d')](_0x382b('0x2e'));
+        return new Promise((_0x496833, _0x1d71be) => {
+            fetch(_0x382b('0x2f'), {
+                'method': _0x382b('0x30'),
+                'headers': { 'Content-Type': _0x382b('0x31') },
+                'body': JSON['stringify']({ 'key': this[_0x382b('0x32')] })
+            })[_0x382b('0x33')](_0x463002 => _0x463002[_0x382b('0x34')]())[_0x382b('0x33')](_0x257cb0 => {
+                _0x496833(_0x257cb0['response']);
+            });
+        });
+    }
+    [_0x382b('0x35')]() {
+        return new Promise((_0x3b35e4, _0x14e951) => {
+            fetch(_0x382b('0x36'), {
+                'method': _0x382b('0x30'),
+                'headers': { 'Content-Type': _0x382b('0x31') },
+                'body': JSON['stringify']({ 'apiKey': this[_0x382b('0xf')] })
+            })['then'](_0x200cdb => _0x200cdb[_0x382b('0x34')]())[_0x382b('0x33')](_0x255c8a => {
+                _0x3b35e4(_0x255c8a[_0x382b('0x37')]);
+            });
+        });
+    }
+    [_0x382b('0x25')]() {
+        this[_0x382b('0x35')]()[_0x382b('0x33')](_0x21bd10 => {
+            if (_0x21bd10 < 0x1) {
+                this[_0x382b('0x38')] = _0x21bd10;
+                this[_0x382b('0x32')] = this[_0x382b('0x24')]();
+                this['_0x99FA91B']()[_0x382b('0x33')](_0x4eb118 => {
+                    console[_0x382b('0x2d')](_0x382b('0x39') + _0x4eb118);
+                    this[_0x382b('0x12')] = !![];
+                    ctx[_0x382b('0x9')] = _0x382b('0x7');
+                    ctx[_0x382b('0x3a')] = _0x382b('0x3b');
+                    ctx[_0x382b('0x3c')] = _0x382b('0x3d');
+                    ctx[_0x382b('0x3e')](_0x4eb118, canvas[_0x382b('0x4')] / 0x2, canvas[_0x382b('0x5')] / 0x2);
+                });
+            }
+        });
+    }
+    ['checkGameOver']() {
+        if (this[_0x382b('0x1b')]['x'] <= 0x0) {
+            this[_0x382b('0x18')] = '';
+        }
+    }
+    [_0x382b('0x3f')]() {
+        if (this[_0x382b('0x1b')]['x'] < -0xf) {
+            this[_0x382b('0x11')] = !![];
+            ctx[_0x382b('0x9')] = '#FFFFFF';
+            ctx[_0x382b('0x3a')] = _0x382b('0x40');
+            ctx[_0x382b('0x3c')] = 'center';
+            ctx[_0x382b('0x3e')]('You\x20lost\x20:(\x20Press\x20space\x20to\x20try\x20again.', canvas['width'] / 0x2, canvas[_0x382b('0x5')] / 0x2);
+            document[_0x382b('0x1d')](_0x382b('0x1e'), _0x4898bc => {
+                if (_0x4898bc[_0x382b('0x1f')] == 0x20) {
+                    location[_0x382b('0x41')]();
+                }
+            });
+        }
+    }
+    [_0x382b('0x21')]() {
+        this[_0x382b('0x42')]++;
+        if (this['tick'] % 0x3c == 0x0) {
+            this[_0x382b('0x25')]();
+        }
+        this['checkLose']();
+        if (this[_0x382b('0x11')] === !![]) {
+        } else if (this[_0x382b('0x12')] === ![]) {
+            ctx['clearRect'](0x0, 0x0, 0x5dc, 0x320);
+            this[_0x382b('0x17')] = 0x1e - Math[_0x382b('0x28')]((getTime() - this[_0x382b('0x16')]) / 0x3e8);
+            this[_0x382b('0x18')] = _0x382b('0x43') + this[_0x382b('0x17')];
+            ctx[_0x382b('0x9')] = _0x382b('0x7');
+            ctx[_0x382b('0x3a')] = _0x382b('0x40');
+            ctx['textAlign'] = _0x382b('0x3d');
+            ctx['fillText'](this['text'], canvas['width'] / 0x2, 0x32);
+            this[_0x382b('0x13')][_0x382b('0x29')](_0x511ac1 => _0x511ac1['draw']());
+            this[_0x382b('0x1a')]['y'] = this[_0x382b('0x1b')]['y'];
+            this[_0x382b('0x1b')][_0x382b('0xa')]();
+            this[_0x382b('0x22')]();
+            if (this[_0x382b('0x14')]) {
+                this['player'][_0x382b('0xa')]('up');
+            }
+            if (this['downKey']) {
+                this[_0x382b('0x19')]['move'](_0x382b('0xb'));
+            }
+            requestAnimationFrame(() => this[_0x382b('0x21')]());
+        }
+    }
+}
+let game = new Game();

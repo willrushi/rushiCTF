@@ -1,5 +1,6 @@
-let canvas = document.getElementById("myCanvas");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+const regex = /[ \n\r\t]/g
 
 let getTime = () => {
 	let d = new Date();
@@ -32,8 +33,8 @@ class Paddle extends Component{
 			this.y -= 10;
 		}
 	}
-	bounce(){
-
+	getHeight(){
+		return this.height;
 	}
 }
 
@@ -51,16 +52,20 @@ class Ball extends Component{
 
 class Game{
 	constructor(){
-		this.components = [];
 		this.start();
+	}
+
+	start(){
+		this.tick = 0;
+		this.api = Math.random();
+		this.lose = false;
+		this.win = false;
+		this.components = [];
 		this.upKey = false;
 		this.downKey = false;
 		this.startTimer = getTime();
 		this.timer = 30;
 		this.text = "";
-	}
-
-	start(){
 		this.player = new Paddle(30, 200, 50, canvas.height/2 - 75);
 		this.enemy = new Paddle(30, 200, (canvas.width - 80), canvas.height/2 - 75);
 		this.ball = new Ball(30, 30, canvas.width/2, canvas.height/2);
@@ -105,42 +110,135 @@ class Game{
 		}
 	}
 
+	_0x195F2B(t){
+		return md5(t);
+	}
+
+	_0x49F92A(){
+		if(this.ball.xVel != 0){
+			let a = [this.start, this.checkCollision, this.checkWin, this.checkGameOver, this.player.getHeight(), this.enemy.getHeight(), this.update, Math.floor(this._0x10F10FAB)];
+			let c = "";
+			a.forEach(b => {
+				c += b.toString();
+			})
+			c = c.replace(regex, "");
+			return(this._0x195F2B(c));
+		}	
+	}
+
+	_0x99FA91B(){
+		console.log("Grabbing key...");
+		return new Promise((resolve, reject) => {
+			fetch("/key", {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({"key":this._0x12F1BB})
+			})
+			.then(res=>res.json())
+			.then(res => {
+				resolve(res.response);
+			});
+		});
+	}
+
+	fetchTime(){
+		return new Promise((resolve, reject) => {
+			fetch("/time", {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({"apiKey":this.api})
+			})
+			.then(res=>res.json())
+				.then(res => {
+					resolve(res.time);
+				});
+		});
+	}
+
+	checkWin(){
+		this.fetchTime()
+			.then(res => {
+				if(res < 1){
+					this._0x10F10FAB = res;
+					this._0x12F1BB = this._0x49F92A();
+					this._0x99FA91B()
+						.then(f => {
+							console.log("Flag: " + f);
+							this.win = true;
+							ctx.fillStyle = "#FFFFFF";
+							ctx.font = "25px Arial";
+							ctx.textAlign = "center";
+							ctx.fillText(f, canvas.width/2, canvas.height/2);		
+						})
+				}
+			})
+		
+	}
+
 	checkGameOver(){
 		if(this.ball.x <= 0){
 			this.text = ""
 		}
 	}
 
+	checkLose(){
+		if(this.ball.x < -15){
+			this.lose = true;
+			ctx.fillStyle = "#FFFFFF";
+			ctx.font = "50px Arial";
+			ctx.textAlign = "center";
+			ctx.fillText("You lost :( Press space to try again.", canvas.width/2, canvas.height/2);
+			document.addEventListener('keydown', (e) => {
+				if(e.keyCode == 32){
+					location.reload();
+				}
+			})
+		}
+	}
+
 	
 	update(){
-		ctx.clearRect(0, 0, 1500, 800);
-
-		this.timer = 30 - Math.floor((getTime() - this.startTimer) / 1000);
-
-		this.text = "TIME LEFT: " + this.timer;
-		console.log(this.text);
-
-		
-		ctx.fillStyle = "#FFFFFF";
-		ctx.font = "50px Arial";
-		ctx.textAlign = "center";
-		ctx.fillText(this.text, canvas.width/2, 50);	
-
-		this.components.forEach(c => c.draw());
-
-		this.enemy.y = this.ball.y;
-
-		this.ball.move();
-
-		this.checkCollision();
-
-		if(this.upKey){
-			this.player.move("up");
+		this.tick++;
+		if(this.tick % 60 == 0){
+			this.checkWin();
 		}
-		if(this.downKey){
-			this.player.move("down");
+		this.checkLose();
+		if(this.lose === true){
+
+		}else if(this.win === false){
+			ctx.clearRect(0, 0, 1500, 800);
+
+			this.timer = 30 - Math.floor((getTime() - this.startTimer) / 1000);
+	
+			this.text = "TIME LEFT: " + this.timer;	
+			
+			ctx.fillStyle = "#FFFFFF";
+			ctx.font = "50px Arial";
+			ctx.textAlign = "center";
+			ctx.fillText(this.text, canvas.width/2, 50);	
+	
+			this.components.forEach(c => c.draw());
+
+			
+	
+			this.enemy.y = this.ball.y;
+	
+			this.ball.move();
+	
+			this.checkCollision();
+	
+			if(this.upKey){
+				this.player.move("up");
+			}
+			if(this.downKey){
+				this.player.move("down");
+			}
+			requestAnimationFrame(() => this.update());
 		}
-		requestAnimationFrame(() => this.update());
 	}
 }
 
