@@ -1,4 +1,4 @@
-const socket = io.connect('http://localhost:3000/');
+const socket = io.connect('http://151.236.222.124:3000/');
 const textbox = document.getElementById("textbox");
 const messages = document.getElementById("messages");
 
@@ -15,6 +15,7 @@ textbox.addEventListener('submit', (e) => {
 	const formdata = new FormData(e.target);
 	const msg = formdata.get("message");
 	handleMessage(msg);
+	e.target.reset();
 });
 
 socket.on('message_recieved', data => {
