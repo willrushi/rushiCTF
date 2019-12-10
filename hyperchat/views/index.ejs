@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hyperchat - The best new online chat app</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="content">
+		<div class="messages" id="messages"></div>
+		<div class="input">
+			<form id="textbox">
+				<input type="text" name="message" autocomplete="off" placeholder="Click here to type"/>
+				<input type="submit" style="display:none;"/>
+			</form>
+		</div>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
+	<script src='chat.js'></script>
+</body>
+</html>
