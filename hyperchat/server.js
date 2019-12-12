@@ -58,8 +58,8 @@ io.on('connection', (socket) => {
 		let time = new Date();
 
 		if(data.message === "!flag"){
-			if(data.r === "210cf7aa5e2682c9c9d4511f88fe2789"){
-				socket.emit('flag', {data: encode({message: "You found the robot flag! FLAG{4dm1n_p0w3rs}"})});
+			if(data.r === "21232f297a57a5a743894a0e4a801fc3"){
+				socket.emit('flag', {data: encode({message: "You found the admin flag! FLAG{4dm1n_p0w3rs}"})});
 				io.sockets.emit('flag_found', {data: encode({message: `************${socket.username} found a flag!************`})});
 			}else{
 				socket.emit('server_message', {data: encode({message: "You must be an admin to use that command."})});
