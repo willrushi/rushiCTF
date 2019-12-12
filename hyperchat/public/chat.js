@@ -27,8 +27,7 @@ const handleMessage = (msg) => {
 	}
 }
 
-const printMessage = (d) => {
-	let data = decode(d.data);
+const printMessage = (data) => {
 	let msg = document.createElement('p');
 	let txt = document.createTextNode(`${data.time} ${data.username}: ${data.message}`);
 	msg.className = "message";
@@ -50,7 +49,8 @@ textbox.addEventListener('submit', (e) => {
 	Handling events from the server
 */
 
-socket.on('message_recieved', data => {
+socket.on('message_recieved', d => {
+	let data = decode(d.data);
 	printMessage(data);
 });
 
@@ -64,7 +64,9 @@ socket.on('server_message', d => {
 	messages.scrollTop = messages.scrollHeight;
 })
 
-socket.on('message_log', data => {
+socket.on('message_log', d => {
+	data = decode(d.data);
+	console.log(data);
 	data.messages.forEach(message => {
 		printMessage(message);
 	});

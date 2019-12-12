@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 	// Emitted on user connection
 	socket.username = "Anonymous";
 	console.log(`${socket.username} | ${socket.id} connected.`);
-	socket.emit('message_log', {messages: messageLog});
+	socket.emit('message_log', {data: encode({messages: messageLog})});
 
 	socket.on('new_message', d => {
 		data = decode(d.data);
