@@ -64,7 +64,6 @@ io.on('connection', (socket) => {
 			}else{
 				socket.emit('server_message', {data: encode({message: "You must be an admin to use that command."})});
 			}
-			
 		}else if(data.message == "!c1f42a77c946733e6a6672ac04e3e3f9"){
 			socket.emit('flag', {data: encode({message: "You found the robot flag! FLAG{r0b0t5_4r3_p30pl3_t00}"})});
 			io.sockets.emit('flag_found', {data: encode({message: `************${socket.username} found a flag!************`})});
