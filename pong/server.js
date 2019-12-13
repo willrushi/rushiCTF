@@ -35,7 +35,7 @@ app.post('/time', (req, res) => {
 app.post('/key', (req, res) => {
     console.log(req.body);
     if(req.body.key == "549683cd82c1aaf1c8cb5d7eddab9e96"){
-        res.send(JSON.stringify({"response":"Well done! FLAG{h4sh3d_j5_1s_s3cur3}"}));
+        res.send(JSON.stringify({"response":"Well done! FLAG{h4sh3d_j5_1s_sup3r_s3cur3}"}));
     }else{
         res.send(JSON.stringify({"response":"Do you think I wouldn't know that you tampered with my js?"}));
     }
