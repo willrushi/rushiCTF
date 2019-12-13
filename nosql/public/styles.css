@@ -1,11 +1,16 @@
-/*body{
-	display: flex;
-	justify-content: center;
-}*/
 .content{
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+#error{
+  color: red;
+}
+input{
+  margin-bottom: 5px;
 }

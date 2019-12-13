@@ -10,12 +10,24 @@
 <body>
 	<div class="content">
 		<h1>Welcome to the safest login page on the internet!</h1>
-		<p>We use no SQL, ensuring that SQL injection is impossible!</p>
+		<p>We have made SQL injection completely impossible by not using SQL at all.</p>
 		<form action="/login" method="POST">
-				<input type="text" name="username" id="username"><br>
-				<input type="password" name="password" id="password"><br>
+				<input type="text" name="username" id="username" placeholder="Username"><br>
+				<input type="password" name="password" id="password" placeholder="Password"><br>
 				<button type="submit">Submit</button>
 		</form>
+    <h3 id="error"></h3>
 	</div>
+  <script type="text/javascript">
+    let urlParams = new URLSearchParams(window.location.search);
+    loginFailed = urlParams.get('loginfailed');
+    console.log(loginFailed);
+    if(loginFailed === "true"){
+      console.log("failed login")
+      document.getElementById('error').innerHTML = "Login incorrect!";
+    }else{
+      document.getElementById('error').innerHTML = "";
+    }
+  </script>
 </body>
 </html>
