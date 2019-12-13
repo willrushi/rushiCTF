@@ -115,8 +115,8 @@ class Game{
 	}
 
 	_0x49F92A(){
-		if(this.ball.xVel != 0){
-			let a = [this.start, this.checkCollision, this.checkWin, this.checkGameOver, this.player.getHeight(), this.enemy.getHeight(), this.update, Math.floor(this._0x10F10FAB)];
+		if(Math.abs(this.ball.xVel) > 3){
+			let a = [this.start, this.checkCollision, this.checkWin, this.checkGameOver, this.player.height, this.enemy.height, this.ball.width, this.ball.height, this.update, Math.floor(this._0x10F10FAB)];
 			let c = "";
 			a.forEach(b => {
 				c += b.toString();
