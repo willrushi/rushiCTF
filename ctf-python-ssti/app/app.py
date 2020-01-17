@@ -6,15 +6,10 @@ import decrypt
 app = Flask(__name__)
 Jinja2 = Environment()
 
-def reset_cookie(referrer):
-	if(referrer):
-		resp = make_response(redirect(referrer + '?err=True'))
-		resp.set_cookie('sacrifice','a',expires=0)
-		return resp
-	else:
-		resp = make_response(redirect('/?err=True'))
-		resp.set_cookie('sacrifice','a',expires=0)
-		return resp
+def reset_cookie():
+	resp = make_response(redirect('/?err=True'))
+	resp.set_cookie('sacrifice','a',expires=0)
+	return resp
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
@@ -33,7 +28,7 @@ def index():
 			cook['ssti'] = Jinja2.from_string(cook['sacrifice']).render()
 		else:
 			print('Resetting cookies.')
-			return reset_cookie(False)
+			return reset_cookie()
 	
 	return render_template("index.html", error_check=error_chk, cookies = cook) #, name=Jinja2.from_string(ssti).render() , title=Jinja2.from_string(ssti).render()
 
@@ -54,9 +49,9 @@ def sacrifice():
 			cook['ssti'] = Jinja2.from_string(cook['sacrifice']).render()
 		else:
 			print('Resetting cookies.')
-			return reset_cookie(False)
+			return reset_cookie()
 	else:
-		return reset_cookie(False)
+		return reset_cookie()
 
 	return render_template("sacrifice.html", error_check=error_chk, cookies=cook)
 
@@ -77,9 +72,9 @@ def submit():
 			resp.set_cookie('sacrifice', request.form['sacrifice'])
 			return resp
 		else:
-			return reset_cookie(request.referrer)
+			return reset_cookie()
 	else:
-		return reset_cookie(request.referrer)
+		return reset_cookie()
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0')

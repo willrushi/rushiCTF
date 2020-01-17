@@ -12,6 +12,7 @@ def check_decrypt(c):
 		print('Err: ' + str(err))
 		return decrypt
 	except Exception as e:
+		print(e)
 		return False
 
 #print(check_decrypt(sys.argv[1]))
