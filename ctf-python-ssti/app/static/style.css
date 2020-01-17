@@ -1,0 +1,44 @@
+.form-wrapper{
+	display:flex;
+	justify-content: center;
+}
+.login{
+	width: 50%;
+}
+
+body{
+	background: url(images/background.jpg);
+	color: #d3d3d3 !important;
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.form-control{
+	border: 0px;
+	background-color: #000000;
+}
+
+@font-face {
+    font-family: 'first_orderregular';
+    src: url('firstorder-webfont.woff2') format('woff2'),
+         url('firstorder-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.bg-dark{
+	background-color: #00000000 !important;
+}
+
+.title-jyburn{
+	font-family: 'first_orderregular';
+	font-size: 2em;
+	color: #1b7405 !important;
+}
+
+.btn-danger, .btn-danger:hover{
+	background-color: #5a0000;
+}
+
+.jyburn-pad{
+	padding-top: 50px;
+}

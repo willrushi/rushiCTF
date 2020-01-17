@@ -67,7 +67,7 @@ const printMessage = (data) => {
 	let timeTxt = document.createTextNode(`${data.time} `);
 	time.appendChild(timeTxt);
 	let uname = document.createElement('span');
-	let unameTxt = document.createTextNode(`${data.username}: `);
+	let unameTxt = document.createTextNode(`${String.fromCodePoint(0x1F451)} ${data.username}: `);
 	uname.appendChild(unameTxt);
 	let message = document.createElement('span');
 	let messageTxt = document.createTextNode(`${data.message}`);

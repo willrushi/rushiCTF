@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>  
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	{% if cookies.ssti %}
+		<title>Welcome to the family, {{cookies.ssti}}.</title>
+	{% else %}
+		<title>Who are you?</title>
+	{% endif %}
+	<!-- Bootstrap core CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+	{% if cookies.sacrifice %}
+		<link rel="stylesheet" href="../static/style_01c1924b82a.css">
+	{% else %}
+		<link rel="stylesheet" href="../static/style.css">
+	{% endif %}
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  {% include 'nav.html' %}
+
+  <!-- Page Content -->
+  <div class="container">
+	<div class="row jyburn-pad">
+		{% if cookies.sacrifice %}
+		<div class='col-3'></div>
+		<div class="col-6 text-center">
+		<p class="lead">Welcome to the family, {{cookies.sacrifice}}</p>
+		<h1 class="mt-5">We will be in touch shortly.</h1>
+		</div>
+		{% else %}
+		<div class='col-3'></div>
+		<div class="col-6 text-center">
+		<p>
+			All of our lives, we have been fed lies. Falsehoods about the creation of mathematics. Stories of Shamir, Turing, Shannon.
+			Euclid. Archimedes. It's all a lie.
+		</p>
+		<p>
+			We know the truth. All of these fundamental cryptographic and mathematical discoveries weren't created by a group of people over the ages; no.
+			They were crafted at the fingertips of one man - Ron Jyburn.
+		</p>
+		<p>
+			The truth is out there in plain sight, but nobody is looking for it. Check the history books. His name comes up time and time again. 
+			Britain. France. Rome. China. He has travelled the world, whispering hints of his unmeasurable skill in to the ears of mathematicians through
+			the ages.
+		</p>
+		<p>
+			It's time you open your eyes. Accept the truth and make your sacrifice.
+		</p>
+		<h1 class="mt-5">We are the Cult of Jyburn.</h1>
+		<p class="lead">Prove your worth. Make your sacrifice.</p>
+		<div class="form-wrapper">
+			<form class="login" action="/submit" method="POST">
+				<div class="form-group">
+				  <label for="exampleInputEmail1">Sacrifice.</label>
+				  <input type="text" class="form-control" placeholder="Sacrifice." name="sacrifice">
+				</div>
+				<button type="submit" class="btn btn-danger">Sacrifice.</button>
+			  </form>
+		</div>
+		{% if error_check %}
+			<p>Unworthy.</p>
+		{% endif %}
+	  </div>
+	  {% endif %}
+	</div>
+  </div>
+
+</body>
+
+</html>
